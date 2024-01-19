@@ -1,4 +1,5 @@
 "use client";
+
 import React, { PropsWithChildren } from "react";
 import { ThemeProvider as MuiThemeProvider } from "@mui/material";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";

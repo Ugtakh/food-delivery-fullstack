@@ -1,3 +1,6 @@
 export const colors = {
-  chernilenYagaa: "#442255",
+  primary: {
+    main: "#18BA51",
+  },
+  secondary: "",
 };
