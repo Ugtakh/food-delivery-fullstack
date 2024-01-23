@@ -127,7 +127,10 @@ export const Header = () => {
               fontSize="medium"
               sx={{ position: "absolute", left: 12 }}
             />
-            <OutlinedInput sx={{ borderRadius: 3, pl: 6, height: "42px" }} />
+            <OutlinedInput
+              placeholder="Search"
+              sx={{ borderRadius: 3, pl: 6, height: "42px" }}
+            />
           </Box>
 
           <Box

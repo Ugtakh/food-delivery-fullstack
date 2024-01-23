@@ -1,19 +1,17 @@
 import { Grid, Button, Typography } from "@mui/material";
-import { Header } from "@/components";
+import { FoodCard, Header } from "@/components";
 
 export default function Home() {
   return (
     <main>
       <Header />
       <Grid container>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={12}>
           <Typography variant="h3">Welcome Mui Framework</Typography>
         </Grid>
-        <Grid item xs={12} md={6}>
-          <Button variant="contained" color="secondary">
-            Click
-          </Button>
-        </Grid>
+        {/* <Grid item xs={12} md={12}>
+          <FoodCard data={{ name: "Cool Food", price: 1000, img: "" }} />
+        </Grid> */}
       </Grid>
     </main>
   );
