@@ -152,7 +152,7 @@ export const Header = () => {
               </IconButton>
             </Box>
             <Box sx={{ px: 2 }}>
-              <IconButton onClick={() => {}} color="inherit">
+              <IconButton onClick={() => {}} color="inherit" href="/login">
                 <PersonOutlineOutlinedIcon fontSize="medium" />
                 <span
                   style={{

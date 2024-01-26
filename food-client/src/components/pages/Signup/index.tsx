@@ -1,11 +1,18 @@
 "use client";
 
 import { Button, Input } from "@/components";
-import { Box, Container, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  Container,
+  FormControlLabel,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 import React from "react";
 
-const LoginPage = () => {
+const SignupPage = () => {
   return (
     <Container>
       <Box
@@ -25,29 +32,29 @@ const LoginPage = () => {
           gutterBottom
           sx={{ fontSize: "28px", fontWeight: "700" }}
         >
-          Нэвтрэх
+          Бүртгүүлэх
         </Typography>
-        <Stack width="100%" sx={{ mb: "2rem" }}>
-          <Input label="Имэйл" />
+        <Stack width="100%" sx={{ mb: "1rem" }}>
+          <Input label="Нэр" />
+          <Input label="И-Мэйл" />
+          <Input label="Хаяг" />
           <Input label="Нууц үг" showPassword />
-          <Button label="Нууц үг сэргээх" btnType="text" href="/forgot-pass" />
-          {/* <Typography variant="button" align="right">
-            Нууц үг сэргээх
-          </Typography> */}
+          <Input label="Нууц үг давтах" showPassword />
+        </Stack>
+
+        <Stack sx={{ mb: "1rem" }}>
+          <FormControlLabel
+            control={<Checkbox name="jason" />}
+            label="Үйлчилгээний нөхцөл зөвшөөрөх"
+          />
         </Stack>
 
         <Stack flex="row" width="100%" justifyContent="flex-end">
-          <Button label="Нэвтрэх" />
-        </Stack>
-        <Stack sx={{ my: "2rem" }}>
-          <Typography>Эсвэл</Typography>
-        </Stack>
-        <Stack flex="row" width="100%" justifyContent="flex-end">
-          <Button label="Бүртгүүлэх" btnType="outlined" href="/signup" />
+          <Button label="Бүртгүүлэх" />
         </Stack>
       </Box>
     </Container>
   );
 };
 
-export default LoginPage;
+export default SignupPage;

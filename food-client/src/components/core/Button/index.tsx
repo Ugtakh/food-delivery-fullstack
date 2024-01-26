@@ -6,6 +6,7 @@ interface IButtonProps {
   disabled?: boolean;
   btnType?: "contained" | "outlined" | "text";
   onClick?: () => void;
+  href?: string;
 }
 
 export const Button = ({
@@ -13,10 +14,12 @@ export const Button = ({
   disabled = false,
   btnType = "contained",
   onClick,
+  href,
 }: IButtonProps) => {
   return (
     <Stack>
       <MuiButton
+        href={href}
         onClick={onClick}
         color="primary"
         variant={btnType}
