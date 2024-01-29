@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from "express";
 import color from "colors";
+import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -15,6 +16,7 @@ const app: Application = express();
 
 connectDB(MONGO_URI);
 
+app.use(cors());
 app.use(express.json());
 app.use("/auth", authRoute);
 app.use("/users", userRoute);

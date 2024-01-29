@@ -7,7 +7,9 @@ export const signup = async (req: Request, res: Response) => {
   console.log("Signup");
   try {
     const newUser = req.body;
-    const user = await User.create(newUser);
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newUser.password, salt);
+    await User.create({ ...newUser, password: hashedPassword });
     res.status(201).json({ message: "Шинэ хэрэглэгч амжилттай бүртгэгдлээ" });
   } catch (error) {
     res

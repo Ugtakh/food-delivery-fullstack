@@ -11,13 +11,13 @@ const transport = nodemailer.createTransport({
   },
 });
 
-export const sendEmail = async (email: string, subject: string) => {
+export const sendEmail = async (email: string, otp: string) => {
   await transport.sendMail({
     from: process.env.EMAIL_USER, // sender address
     to: email, // list of receivers
-    subject, // Subject line
+    subject: "Verify Account for Food platform", // Subject line
     text: "Hello world", // plain text body
-    html: generateTemplate(email),
+    html: generateTemplate(otp),
   });
 };
 
@@ -33,7 +33,7 @@ const generateTemplate = (otp: string) => {
           Thank you for choosing Your Brand. Use the following OTP to complete your Sign Up procedures. OTP is valid for 5 minutes
         </p>
         <h2 style="background:#00466a; margin:0 auto; width:max-content; padding:0 10px;color:#fff; border-radius: 4px;">
-          0987
+          ${otp}
         </h2>
         <p style="font-size:0.9em;">Regards,<br />Food Platform Inc</p>
         <hr style="border:none;border-top:1px solid #eee" />
