@@ -1,9 +1,10 @@
 import { Button as MuiButton, Stack } from "@mui/material";
-import { ReactNode } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 
 interface IButtonProps {
-  label: ReactNode;
+  label: string;
   disabled?: boolean;
+  loading?: boolean;
   btnType?: "contained" | "outlined" | "text";
   onClick?: () => void;
   href?: string;
@@ -12,6 +13,7 @@ interface IButtonProps {
 export const Button = ({
   label,
   disabled = false,
+  loading = false,
   btnType = "contained",
   onClick,
   href,

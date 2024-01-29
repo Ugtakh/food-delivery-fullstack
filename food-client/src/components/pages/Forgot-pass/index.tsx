@@ -1,87 +1,58 @@
 "use client";
 
-import * as React from "react";
+import { ChangeEvent, useState } from "react";
 import Box from "@mui/material/Box";
 import { Button, Input } from "@/components";
 import Typography from "@mui/material/Typography";
 import { Container, Stack } from "@mui/material";
+import axios from "axios";
+import { toast } from "react-toastify";
+
+import StepOne from "./StepOne";
+import StepTwo from "./StepTwo";
+import StepThree from "./StepThree";
 
 const MyStepper = () => {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(1);
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+    otp: "",
+  });
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  const handleNext = async () => {
+    try {
+      const data = await axios.post("http://localhost:8080/verify/send-email", {
+        email: user.email,
+      });
+      setActiveStep((prev) => prev + 1);
+    } catch (error) {
+      toast.error("Email илгэээхэд алдаа гарлаа.");
+    }
   };
 
-  const steps = [
-    {
-      label: "Нууц үг сэргээх",
-      content: <Input label="Имэйл" />,
-    },
-    {
-      label: "Нууц үг сэргээх",
-      content: (
-        <>
-          <Typography>
-            Таны <span style={{ color: "#18BA51" }}>example@pinecone.mn</span>{" "}
-            хаяг руу сэргээх код илгээх болно.
-          </Typography>
-          <Stack width="100%" sx={{ mb: "2rem" }}>
-            <Input label="Нууц үг сэргээх код" showPassword />
-          </Stack>
-        </>
-      ),
-    },
-    {
-      label: "Шинэ нууц үг зохиох",
-      content: (
-        <>
-          <Stack width="100%" sx={{ mb: "2rem" }}>
-            <Input label="Нууц үг" showPassword />
-            <Input label="Нууц үг давтах" showPassword />
-          </Stack>
-        </>
-      ),
-    },
-  ];
-
-  const currentStep = steps[activeStep];
+  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   return (
     <Container>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          flexDirection: "column",
-          justifyContent: "center",
-          margin: "auto ",
-          px: "2.1rem",
-          maxWidth: "450px",
-          padding: "5rem 0",
-        }}
-      >
-        <Typography
-          align="center"
-          gutterBottom
-          sx={{ fontSize: "28px", fontWeight: "700" }}
-        >
-          {currentStep.label}
-        </Typography>
-
-        {currentStep.content}
-
-        <Stack flex="row" width="100%" justifyContent="flex-end">
-          <Button
-            label={activeStep === steps.length - 1 ? "Дуусгах" : "Үргэлжлүүлэх"}
-            onClick={
-              activeStep === steps.length - 1
-                ? () => alert("Нууц үг амжилттай солигдлоо")
-                : handleNext
-            }
-          />
-        </Stack>
-      </Box>
+      {activeStep === 1 && (
+        <StepOne
+          email={user.email}
+          handleNext={handleNext}
+          handleChangeInput={handleChangeInput}
+        />
+      )}
+      {activeStep === 2 && (
+        <StepTwo
+          email={user.email}
+          otp={user.otp}
+          handleNext={handleNext}
+          handleChangeInput={handleChangeInput}
+        />
+      )}
+      {activeStep === 3 && <StepThree />}
     </Container>
   );
 };

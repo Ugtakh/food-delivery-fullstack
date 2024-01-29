@@ -79,8 +79,8 @@ const Footer = () => {
             justifyContent={"center"}
             gap={3}
           >
-            {linkButtons.map((link) => (
-              <>{link.icon}</>
+            {linkButtons.map((link, idx) => (
+              <span key={idx}>{link.icon}</span>
             ))}
           </Stack>
           <Divider sx={{ backgroundColor: "white", borderWidth: "1px" }} />
