@@ -14,21 +14,26 @@ import StepThree from "./StepThree";
 
 const MyStepper = () => {
   const [activeStep, setActiveStep] = useState(1);
+
   const [user, setUser] = useState({
     email: "",
     password: "",
     otp: "",
   });
 
-  const handleNext = async () => {
+  const sendToEmail = async () => {
     try {
       const data = await axios.post("http://localhost:8080/verify/send-email", {
         email: user.email,
       });
-      setActiveStep((prev) => prev + 1);
+      handleNext();
     } catch (error) {
       toast.error("Email илгэээхэд алдаа гарлаа.");
     }
+  };
+
+  const handleNext = async () => {
+    setActiveStep((prev) => prev + 1);
   };
 
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {

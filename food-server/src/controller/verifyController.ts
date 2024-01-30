@@ -62,6 +62,14 @@ export const verifyOtp = async (req: Request, res: Response) => {
     res.status(200).json({ message: "OTP is validated" });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "Server is internal error" });
+    res.status(500).json({ message: "Server is internal error", error });
+  }
+};
+
+export const resetPassword = (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+  } catch (error) {
+    res.status(500).json({ message: "Server is internal error", error });
   }
 };
