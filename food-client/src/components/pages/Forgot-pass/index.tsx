@@ -1,36 +1,21 @@
 "use client";
 
 import { ChangeEvent, useState } from "react";
-import Box from "@mui/material/Box";
-import { Button, Input } from "@/components";
-import Typography from "@mui/material/Typography";
-import { Container, Stack } from "@mui/material";
-import axios from "axios";
-import { toast } from "react-toastify";
+
+import { Container } from "@mui/material";
 
 import StepOne from "./StepOne";
 import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 
 const MyStepper = () => {
-  const [activeStep, setActiveStep] = useState(1);
+  const [activeStep, setActiveStep] = useState(3);
 
   const [user, setUser] = useState({
     email: "",
     password: "",
     otp: "",
   });
-
-  const sendToEmail = async () => {
-    try {
-      const data = await axios.post("http://localhost:8080/verify/send-email", {
-        email: user.email,
-      });
-      handleNext();
-    } catch (error) {
-      toast.error("Email илгэээхэд алдаа гарлаа.");
-    }
-  };
 
   const handleNext = async () => {
     setActiveStep((prev) => prev + 1);
@@ -57,7 +42,7 @@ const MyStepper = () => {
           handleChangeInput={handleChangeInput}
         />
       )}
-      {activeStep === 3 && <StepThree />}
+      {activeStep === 3 && <StepThree email={user.email} />}
     </Container>
   );
 };

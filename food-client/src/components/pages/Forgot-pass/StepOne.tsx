@@ -1,7 +1,9 @@
 import { Button, Input } from "@/components";
 import { Box, Container, Stack, Typography } from "@mui/material";
+import axios from "axios";
 import { useFormik } from "formik";
 import React, { ChangeEvent } from "react";
+import { toast } from "react-toastify";
 import { object, string } from "yup";
 
 interface IStepProps {
@@ -11,6 +13,17 @@ interface IStepProps {
 }
 
 const StepOne = ({ email, handleNext, handleChangeInput }: IStepProps) => {
+  const sendToEmail = async () => {
+    try {
+      const data = await axios.post("http://localhost:8080/verify/send-email", {
+        email: email,
+      });
+      handleNext();
+    } catch (error) {
+      toast.error("Email илгэээхэд алдаа гарлаа.");
+    }
+  };
+
   return (
     <Container>
       <Box
@@ -34,7 +47,7 @@ const StepOne = ({ email, handleNext, handleChangeInput }: IStepProps) => {
         </Typography>
         <Input label="Имэйл" onChange={handleChangeInput} name="email" />
         <Stack flex="row" width="100%" justifyContent="flex-end">
-          <Button label={"Үргэлжлүүлэх"} onClick={handleNext} />
+          <Button label={"Үргэлжлүүлэх"} onClick={sendToEmail} />
         </Stack>
       </Box>
     </Container>
