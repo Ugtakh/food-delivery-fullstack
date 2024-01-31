@@ -1,6 +1,7 @@
 "use client";
 import HeroSection from "@/components/HeroSection";
 import CardsSection from "@/components/CardsSection";
+import AdventagesSection from "@/components/AdventagesSection";
 
 const mockSaled = [
   {
@@ -33,6 +34,7 @@ export default function Home() {
   return (
     <main>
       <HeroSection />
+      <AdventagesSection />
       <CardsSection
         data={{ sectionTitle: "Хямдралтай", foodData: mockSaled }}
       />
