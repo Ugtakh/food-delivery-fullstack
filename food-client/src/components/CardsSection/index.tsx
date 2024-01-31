@@ -43,7 +43,13 @@ const CardsSection = ({
           <Grid container spacing={5}>
             {foodData &&
               foodData.map((food, index) => (
-                <Grid item xs={3} key={index}>
+                <Grid
+                  item
+                  xs={3}
+                  key={index}
+                  display={"flex"}
+                  justifyContent={"center"}
+                >
                   <ProductCard data={food} />
                 </Grid>
               ))}

@@ -15,7 +15,7 @@ const ProductCard = ({ data }: IProductCardProps) => {
   const saledPrice = data.price - data.price * (data.sale / 100);
 
   return (
-    <Card sx={{ maxWidth: 282, position: "relative" }}>
+    <Card sx={{ width: "100%", maxWidth: 'full', position: "relative" }}>
       <CardMedia sx={{ height: 186 }} image={data.img} />
       {data.sale > 0 ? (
         <Chip

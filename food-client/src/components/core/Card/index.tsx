@@ -1,16 +1,17 @@
 import { Box, Card, CardContent, Typography } from "@mui/material";
+import React from "react";
 
-interface IFoodProps {
+interface AdventageCardProps {
   data: {
-    icon: string;
-    title: number;
+    icon: React.ReactNode;
+    title: string;
     desc: string;
   };
 }
 
-export const AdventageCard = ({ data }: IFoodProps) => {
+export const AdventageCard = ({ data }: AdventageCardProps) => {
   return (
-    <Card sx={{ maxWidth: 282 }}>
+    <Card sx={{ width: "100%", maxWidth: "full" }}>
       <CardContent>
         <Box sx={{ color: "primary", backgroundColor: "primary" }}>
           {data.icon}
