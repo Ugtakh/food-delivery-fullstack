@@ -1,7 +1,6 @@
 import {
   Box,
   Card,
-  CardActionArea,
   CardContent,
   CardMedia,
   Chip,
@@ -10,7 +9,7 @@ import {
 
 const ProductCard = () => {
   return (
-    <Card sx={{ width: 282, position: "relative" }}>
+    <Card sx={{ maxWidth: 282, position: "relative" }}>
       <CardMedia sx={{ height: 186 }} image="/assets/food-1.jpg" />
       <Chip color="primary" label="-20%" sx={{ position: "absolute", top: 10, right: 10, color: 'white', fontSize:18, border:1 }} />
       <CardContent>

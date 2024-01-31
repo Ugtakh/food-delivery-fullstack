@@ -8,13 +8,13 @@ const HeroSection = () => {
     <Box
       sx={{
         backgroundColor: "#18BA51",
-        width: "100vw",
+        // width: "100vw",
         position: "relative",
         alignItems: "center",
       }}
       zIndex={0}
     >
-      <Container>
+      <Container maxWidth="xl">
         <Box
           color={"white"}
           padding={20}
@@ -22,6 +22,7 @@ const HeroSection = () => {
             height: "90vh",
             display: "flex",
             justifyContent: "space-between",
+            gap: 10,
             alignItems: "center",
           }}
         >
@@ -47,8 +48,8 @@ const HeroSection = () => {
             <Image
               src="/assets/hero-image-1.png"
               alt="hero"
-              width={100}
-              height={100}
+              width={443}
+              height={438}
               style={{
                 position: "absolute",
                 left: 0,
@@ -58,9 +59,14 @@ const HeroSection = () => {
             <Image
               src="/assets/hero-image-2.png"
               alt="hero"
-              width={100}
-              height={100}
-              style={{ position: "absolute", right: 50, zIndex: 10 }}
+              width={313}
+              height={313}
+              style={{
+                position: "absolute",
+                bottom: 30,
+                right: 0,
+                zIndex: 10,
+              }}
             />
           </Box>
         </Box>

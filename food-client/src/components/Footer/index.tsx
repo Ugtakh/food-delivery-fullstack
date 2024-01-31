@@ -38,7 +38,7 @@ const Footer = () => {
       }}
       zIndex={-1000}
     >
-      <Container>
+      <Container maxWidth="xl">
         <Box
           color={"white"}
           padding={20}
