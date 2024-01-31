@@ -34,7 +34,7 @@ const adventages: Adventage[] = [
 
 const AdventagesSection = () => {
   return (
-    <Box paddingY={5}>
+    <Box paddingY={10}>
       <Container maxWidth="xl">
         <Stack paddingY={5}>
           <Grid container spacing={5}>

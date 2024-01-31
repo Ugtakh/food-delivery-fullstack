@@ -19,7 +19,6 @@ const HeroSection = () => {
           color={"white"}
           padding={20}
           sx={{
-            height: "90vh",
             display: "flex",
             justifyContent: "space-between",
             gap: 10,

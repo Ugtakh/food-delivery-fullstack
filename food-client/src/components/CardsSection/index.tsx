@@ -19,7 +19,7 @@ const CardsSection = ({
   data: { sectionTitle, foodData },
 }: ICardsSectionProps) => {
   return (
-    <Box paddingY={5}>
+    <Box marginY={10}>
       <Container maxWidth="xl">
         <Stack
           direction={"row"}

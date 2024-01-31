@@ -28,12 +28,9 @@ const LoginPage = () => {
           Нэвтрэх
         </Typography>
         <Stack width="100%" sx={{ mb: "2rem" }}>
-          <Input label="Имэйл" />
-          <Input label="Нууц үг" showPassword />
+          <Input label="Имэйл" name={""} />
+          <Input label="Нууц үг" showPassword name={""} />
           <Button label="Нууц үг сэргээх" btnType="text" href="/forgot-pass" />
-          {/* <Typography variant="button" align="right">
-            Нууц үг сэргээх
-          </Typography> */}
         </Stack>
 
         <Stack flex="row" width="100%" justifyContent="flex-end">
