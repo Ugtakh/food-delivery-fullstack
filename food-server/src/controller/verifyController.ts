@@ -1,52 +1,41 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-// import { customAlphabet } from "nanoid";
 import bcrypt from "bcrypt";
 import { sendEmail } from "../utils/sendEmail";
 import User from "../model/user";
+import { generateHash, otp } from "../utils/functions";
+import MyError from "../utils/myError";
 
-// const nanoid = customAlphabet("1234567890", 4);
-
-export const sendEmailToUser = async (req: Request, res: Response) => {
+export const sendEmailToUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   console.log("SEND_EMAIL");
   try {
     const { email } = req.body;
 
-    const otp = Math.round(Math.random() * 10000)
-      .toString()
-      .padStart(4, "0");
-
     const findUser = await User.findOne({ email });
 
     if (!findUser) {
-      return res.status(400).json({ message: "Хэрэглэгч олдсонгүй" });
+      throw new MyError(`${email}-тэй хэрэглэгч олдсонгүй`, 400);
     }
-
-    console.log("OTP", otp);
-    const salt = await bcrypt.genSalt(10);
-
-    findUser.otp = await bcrypt.hash(otp, salt);
+    const otpCode = otp(4);
+    findUser.otp = await generateHash(otpCode);
 
     await findUser.save();
-
-    await sendEmail({ email, otp });
+    await sendEmail({ email, otp: otpCode });
 
     res.status(201).json({ message: "Email амжилттай илгээгдлээ." });
   } catch (error) {
-    console.log("ERR", error);
-    res.status(400).json({
-      message: "Email илгээх үед алдаа гарлаа.",
-      error,
-    });
+    next(error);
   }
 };
 
 export const verifyOtp = async (req: Request, res: Response) => {
   try {
     const { email, otp } = req.body;
-    console.log("email", email);
-    console.log("OTP", otp);
 
     const findUser = await User.findOne({ email });
     console.log("USER", findUser);
@@ -67,8 +56,13 @@ export const verifyOtp = async (req: Request, res: Response) => {
   }
 };
 
-export const verifyUser = async (req: Request, res: Response) => {
+export const verifyUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
+    console.log("Verify");
     const { token } = req.query;
 
     const { email } = jwt.verify(
@@ -81,15 +75,13 @@ export const verifyUser = async (req: Request, res: Response) => {
     if (!findUser) {
       res.status(500).send("Not verified");
     } else {
-      findUser.isVerified = true;
     }
-
+    findUser?.isVerified && true;
     await findUser?.save();
 
     res.status(200).send(`<h1 style="color: green">Valid Link </h1>`);
   } catch (error) {
-    console.log(error);
-    res.status(500).send({ message: "Server is internal error", error });
+    next(error);
   }
 };
 

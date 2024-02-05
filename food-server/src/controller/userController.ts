@@ -1,10 +1,9 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 
 import User from "../model/user";
+import cloudinary from "../utils/cloudinary";
 
 export const getUsers = async (req: Request, res: Response) => {
-  console.log("Headers", req.headers);
-
   try {
     const users = await User.find();
     res.status(201).json({ message: "Бүх хэрэглэгч олдлоо", users });
@@ -13,5 +12,20 @@ export const getUsers = async (req: Request, res: Response) => {
       message: "Бүх хэрэглэгчийн мэдээллийг авах үед алдаа гарлаа.",
       error,
     });
+  }
+};
+
+export const uploadPhoto = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    console.log("UP", req.file);
+    const result = await cloudinary.upload(req?.file!.path);
+    console.log(result.secure_url);
+    res.json({ message: "ok" });
+  } catch (error) {
+    next(error);
   }
 };
