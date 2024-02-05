@@ -21,10 +21,6 @@ export const uploadPhoto = async (
   next: NextFunction
 ) => {
   try {
-    console.log("UP", req.file);
-    const result = await cloudinary.upload(req?.file!.path);
-    console.log(result.secure_url);
-    res.json({ message: "ok" });
   } catch (error) {
     next(error);
   }

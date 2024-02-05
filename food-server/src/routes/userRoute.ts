@@ -6,6 +6,5 @@ const router = Router();
 const upload = multer({ dest: "./uploads" });
 
 router.route("/").get(getUsers);
-router.route("/photo/upload").post(upload.single("image"), uploadPhoto);
 
 export default router;

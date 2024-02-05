@@ -1,6 +1,6 @@
-import { Schema, Types, model } from "mongoose";
+import { Schema, model } from "mongoose";
 
-const fooSchema = new Schema({
+const foodSchema = new Schema({
   name: {
     type: String,
     require: [true, "Хоолны нэрийг заавал оруулна."],
@@ -21,7 +21,7 @@ const fooSchema = new Schema({
   },
   description: {
     type: String,
-    required: [true, "Хоолны тайлбарыг заавал оруулна."],
+    require: [true, "Хоолны тайлбарыг заавал оруулна."],
   },
   image: {
     type: String,
@@ -38,5 +38,5 @@ const fooSchema = new Schema({
   },
 });
 
-const Model = model("Food", fooSchema);
+const Model = model("Food", foodSchema);
 export default Model;
