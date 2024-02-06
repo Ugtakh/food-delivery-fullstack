@@ -15,6 +15,8 @@ import FoodSort from "./food-sort";
 // ----------------------------------------------------------------------
 import { sample } from "lodash";
 import { faker } from "@faker-js/faker";
+import { Button } from "@mui/material";
+import Iconify from "@/components/iconify";
 
 // ----------------------------------------------------------------------
 
@@ -77,9 +79,23 @@ export default function FoodView() {
 
   return (
     <Container>
-      <Typography variant="h4" sx={{ mb: 5 }}>
-        Хоолны жагсаалт
-      </Typography>
+      <Stack
+        direction="row"
+        alignItems="center"
+        justifyContent="space-between"
+        mb={5}
+      >
+        <Typography variant="h4" sx={{ mb: 5 }}>
+          Хоолны жагсаалт
+        </Typography>
+        <Button
+          variant="contained"
+          color="inherit"
+          startIcon={<Iconify icon="eva:plus-fill" />}
+        >
+          Шинэ хоол
+        </Button>
+      </Stack>
 
       <Stack
         direction="row"

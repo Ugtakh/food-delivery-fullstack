@@ -129,14 +129,6 @@ export default function UserView() {
         mb={5}
       >
         <Typography variant="h4">Хэрэглэгчид</Typography>
-
-        <Button
-          variant="contained"
-          color="inherit"
-          startIcon={<Iconify icon="eva:plus-fill" />}
-        >
-          Шинэ хэрэглэгч
-        </Button>
       </Stack>
 
       <Card sx={{}}>
