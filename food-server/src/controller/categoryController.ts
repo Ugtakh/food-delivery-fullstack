@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import Category from "../model/category";
 import MyError from "../utils/myError";
 import cloudinary from "../utils/cloudinary";
+import { IReq } from "../utils/interface";
 
 export const createCategory = async (
   req: Request,
@@ -49,10 +50,11 @@ export const getCategory = async (
 };
 
 export const getAllCategory = async (
-  req: Request,
+  req: IReq,
   res: Response,
   next: NextFunction
 ) => {
+  console.log("USER", req.user);
   try {
     const categories = await Category.find();
 

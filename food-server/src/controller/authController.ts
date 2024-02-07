@@ -35,16 +35,18 @@ export const login = async (
   next: NextFunction
 ) => {
   try {
-    const { email, password } = req.body;
-    console.log("LOGIN", email);
+    const { userEmail, userPassword } = req.body;
+    console.log("LOGIN", userEmail);
 
-    const user = await User.findOne({ email }).select("+password");
+    const user = await User.findOne({ email: userEmail })
+      .select("+password")
+      .lean();
 
     if (!user) {
-      throw new MyError(`${email}-тэй хэрэглэгч бүртгэлгүй байна.`, 400);
+      throw new MyError(`${userEmail}-тэй хэрэглэгч бүртгэлгүй байна.`, 400);
     }
 
-    const isValid = await bcrypt.compare(password, user.password);
+    const isValid = await bcrypt.compare(userPassword, user.password);
 
     if (!isValid) {
       throw new MyError(`Имэйл эсвэл нууц үг буруу байна.`, 400);
@@ -58,7 +60,13 @@ export const login = async (
       { expiresIn: process.env.JWT_EXPIRES_IN }
     );
 
-    res.status(201).json({ message: "Хэрэглэгч амжилттай нэвтэрлээ", token });
+    const { password, ...otherParams } = user;
+
+    res.status(201).json({
+      message: "Хэрэглэгч амжилттай нэвтэрлээ",
+      token,
+      user: otherParams,
+    });
   } catch (error) {
     next(error);
   }

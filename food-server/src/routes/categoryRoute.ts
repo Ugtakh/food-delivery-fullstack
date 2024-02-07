@@ -7,12 +7,13 @@ import {
   updateCategory,
 } from "../controller/categoryController";
 import { upload } from "../utils/multer";
+import { authenticate } from "../middleware/auth";
 
 const router = Router();
 
 router
   .route("/")
-  .get(getAllCategory)
+  .get(authenticate, getAllCategory)
   .post(upload.single("image"), createCategory);
 
 router
