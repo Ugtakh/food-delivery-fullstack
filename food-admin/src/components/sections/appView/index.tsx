@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+"use client";
 import { faker } from "@faker-js/faker";
 
 import Container from "@mui/material/Container";
@@ -16,14 +17,24 @@ import AppWidgetSummary from "./app-widget-summary";
 import AppTrafficBySite from "./app-traffic-by-site";
 import AppCurrentSubject from "./app-current-subject";
 import AppConversionRates from "./app-conversion-rates";
+import { useState } from "react";
+import { redirect } from "next/navigation";
 
 // ----------------------------------------------------------------------
 
 export default function AppView() {
+  const [user, sestUser] = useState(
+    JSON.parse(localStorage.getItem("user") || "")
+  );
+
+  if (!user) {
+    redirect("/login");
+  }
+
   return (
     <Container maxWidth="xl">
       <Typography variant="h4" sx={{ mb: 5 }}>
-        Сайн уу, Тавтай морил 👋
+        Сайн уу, Тавтай морил - {user.name}👋
       </Typography>
 
       <Grid container spacing={3}>

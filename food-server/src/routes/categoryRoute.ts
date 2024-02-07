@@ -7,19 +7,19 @@ import {
   updateCategory,
 } from "../controller/categoryController";
 import { upload } from "../utils/multer";
-import { authenticate } from "../middleware/auth";
+import { authenticate, authorize } from "../middleware/auth";
 
 const router = Router();
 
 router
   .route("/")
-  .get(authenticate, getAllCategory)
+  .get(getAllCategory)
   .post(upload.single("image"), createCategory);
 
 router
   .route("/:categoryId")
   .get(getCategory)
   .put(updateCategory)
-  .delete(deleteCategory);
+  .delete(authenticate, authorize("Admin", "User"), deleteCategory);
 
 export default router;
