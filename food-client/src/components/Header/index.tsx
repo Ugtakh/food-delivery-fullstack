@@ -21,6 +21,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Logo } from "@/components/Logos";
 import Link from "next/link";
+import MyDrawer from "../Drawer";
 
 const pages = ["НҮҮР", "ХООЛНЫ ЦЭС", "ХҮРГЭЛТИЙН БҮС"];
 const settings = ["Профайл", "Тохиргоо", , "Гарах"];
@@ -29,6 +30,7 @@ export const Header = () => {
   const user = null;
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [drawer, setDrawer] = useState(false);
 
   const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -44,6 +46,9 @@ export const Header = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleOpenDrawer = () => setDrawer(true);
+  const handleCloseDrawer = () => setDrawer(false);
 
   return (
     <AppBar
@@ -133,7 +138,7 @@ export const Header = () => {
             sx={{ display: "flex", alignItems: "center", gap: 2, flexGrow: 0 }}
           >
             <Box sx={{ px: 2 }}>
-              <IconButton onClick={() => {}} color="inherit">
+              <IconButton onClick={handleOpenDrawer} color="inherit">
                 <ShoppingBasketOutlinedIcon fontSize="medium" />
                 <span
                   style={{
@@ -146,6 +151,7 @@ export const Header = () => {
                   Сагс
                 </span>
               </IconButton>
+              <MyDrawer open={drawer} handleClose={handleCloseDrawer} />
             </Box>
             <Box sx={{ px: 2 }}>
               <IconButton onClick={() => {}} color="inherit" href="/login">
