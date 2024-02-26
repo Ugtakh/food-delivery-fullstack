@@ -12,7 +12,7 @@ const MyStepper = () => {
   const [activeStep, setActiveStep] = useState(3);
 
   const [user, setUser] = useState({
-    email: "",
+    email: "ugtakhbayars@gmail.com",
     password: "",
     otp: "",
   });

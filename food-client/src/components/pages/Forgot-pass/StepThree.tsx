@@ -5,6 +5,7 @@ import { ChangeEvent, useState } from "react";
 import Swal from "sweetalert2";
 import { useFormik } from "formik";
 import { object, string, ref } from "yup";
+import axios from "axios";
 
 interface IStepProps {
   email: string;
@@ -24,9 +25,10 @@ const StepThree = ({ email }: IStepProps) => {
   const router = useRouter();
 
   const formik = useFormik({
-    onSubmit: ({ password, rePassword }) => {
+    onSubmit: async ({ password, rePassword }) => {
       console.log("PASS", password);
       console.log("PASS", rePassword);
+      savePassword(email, password);
     },
     initialValues: { password: "test", rePassword: "retest" },
     validateOnChange: false,
@@ -34,7 +36,17 @@ const StepThree = ({ email }: IStepProps) => {
     validateOnBlur: false,
   });
 
-  const savePassword = async () => {
+  const savePassword = async (email: string, password: string) => {
+    console.log("Email", email);
+    console.log("Pass", password);
+    const res = await axios.post(
+      "http://localhost:8080/verify/reset-password/",
+      {
+        email,
+        password,
+      }
+    );
+    console.log("RES");
     await Swal.fire({
       title: "Таны нууц үг амжилттай солигдлоо",
       text: "та шинэ нууц үгээ ашиглан нэвтэрнэ үү",

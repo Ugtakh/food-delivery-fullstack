@@ -36,7 +36,7 @@ export const login = async (
 ) => {
   try {
     const { userEmail, userPassword } = req.body;
-    console.log("LOGIN", userEmail);
+    console.log("LOGIN", userEmail, userPassword);
 
     const user = await User.findOne({ email: userEmail })
       .select("+password")
@@ -45,6 +45,7 @@ export const login = async (
     if (!user) {
       throw new MyError(`${userEmail}-тэй хэрэглэгч бүртгэлгүй байна.`, 400);
     }
+    console.log("USER", user);
 
     const isValid = await bcrypt.compare(userPassword, user.password);
 

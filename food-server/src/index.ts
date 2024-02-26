@@ -12,6 +12,7 @@ import FoodRoute from "./routes/foodRoute";
 import verifyRoute from "./routes/verifyRoute";
 import uploadRoute from "./routes/uploadRoute";
 import categoryRoute from "./routes/categoryRoute";
+import basketRoute from "./routes/basketRoutes";
 
 import errorHandler from "./middleware/errorHandler";
 
@@ -24,12 +25,17 @@ connectDB(MONGO_URI);
 
 app.use(cors());
 app.use(express.json());
+app.use((req, res, next) => {
+  console.log("REQ", req.originalUrl);
+  next();
+});
 app.use("/auth", authRoute);
 app.use("/users", userRoute);
 app.use("/foods", FoodRoute);
 app.use("/verify", verifyRoute);
 app.use("/categories", categoryRoute);
 app.use("/upload", uploadRoute);
+app.use("/basket", basketRoute);
 
 app.use(errorHandler);
 
