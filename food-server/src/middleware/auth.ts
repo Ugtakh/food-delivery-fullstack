@@ -23,6 +23,7 @@ export const authenticate = async (
       id: string;
     };
     const findUser = await User.findById(id);
+
     req.user = findUser;
     next();
   } catch (error) {
