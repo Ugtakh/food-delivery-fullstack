@@ -1,108 +1,53 @@
 import * as React from "react";
-import {
-  Box,
-  Button as MuiButton,
-  Typography,
-  Modal,
-  Grid,
-  Divider,
-} from "@mui/material";
-import Image from "next/image";
-import { Remove, Add, Close } from "@mui/icons-material";
+import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
+import FoodCard from "./FoodCard";
+import { Button } from "..";
 
-const style = {
-  width: 538,
-  borderRadius: 5,
-};
-
-const backgroundImageStyle = {
-  backgroundImage: 'url("/assets/food-1.jpg")',
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  width: "245px",
-  height: "150px",
-};
-
-export const DrawerCard = () => {
-  const [count, setCount] = React.useState(1);
-
-  const handleCount = (operation: string) => {
-    if (operation === "add") {
-      setCount(count + 1);
-    } else if (operation === "min") {
-      setCount(count - 1);
-    }
-  };
-
+export const DrawerCard = ({ basket }: any) => {
   return (
-    <>
-      <Box sx={style} m={5}>
-        <Grid container display={"flex"} flexDirection={"row"} gap={10}>
-          <Grid item xs={5} style={backgroundImageStyle}></Grid>
-          <Grid
-            item
-            xs={5}
-            display={"flex"}
-            flexDirection={"column"}
-            alignItems={"flex-start"}
-          >
-            <Grid item xs={1} position={"relative"}>
-              <MuiButton sx={{ ml: 50, position: "absolute" }}>
-                <Close />
-              </MuiButton>
-            </Grid>
-            <Grid display={"flex"} flexDirection={"column"}>
-              <Typography fontWeight={600}>Bowl</Typography>
-              <Typography sx={{ color: "#18BA51" }} fontWeight={600}>
-                18,800
-              </Typography>
-
-              <Typography color={"gray"}>
-                Өндөг, шош, улаан лооль, өргөст хэмт, байцаа, салмон.
-              </Typography>
-
-              <div>
-                <MuiButton onClick={() => handleCount("min")}>
-                  <Remove
-                    sx={{
-                      bgcolor: "#18BA51",
-                      color: "white",
-                      width: "70%",
-                      height: "30px",
-                      borderRadius: 2,
-                    }}
-                  />
-                </MuiButton>
-                <input
-                  type="text"
-                  value={count}
-                  style={{
-                    width: "60px",
-                    border: "none",
-                    textAlign: "center",
-                    paddingTop: 4,
-                    paddingBottom: 4,
-                    fontWeight: 600,
-                    fontSize: 16,
-                  }}
-                />
-                <MuiButton onClick={() => handleCount("add")}>
-                  <Add
-                    sx={{
-                      bgcolor: "#18BA51",
-                      color: "white",
-                      width: "70%",
-                      height: "30px",
-                      borderRadius: 2,
-                    }}
-                  />
-                </MuiButton>
-              </div>
-            </Grid>
-          </Grid>
-        </Grid>
+    <Stack
+      direction={"column"}
+      height={"93%"}
+      width={"100%"}
+      justifyContent={"space-between"}
+    >
+      <Box
+        alignSelf={"center"}
+        height={"100%"}
+        width={"100%"}
+        overflow={"auto"}
+      >
+        {basket?.foods.map((food: any) => (
+          <FoodCard key={food._id} selectedFood={food} />
+        ))}
       </Box>
       <Divider />
-    </>
+      <Grid
+        width={"100%"}
+        container
+        bottom={0}
+        boxShadow={3}
+        bgcolor={"white"}
+        py={10}
+        px={5}
+      >
+        <Grid
+          item
+          xs={6}
+          display={"flex"}
+          flexDirection={"column"}
+          alignItems={"flex-start"}
+          pl={5}
+        >
+          <Typography variant="body1">Нийт төлөх дүн</Typography>
+          <Typography variant="h6" fontWeight={600}>
+            {basket?.totalPrice.toLocaleString()}₮
+          </Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <Button label={"Захиалах"} onClick={() => {}} />
+        </Grid>
+      </Grid>
+    </Stack>
   );
 };

@@ -39,4 +39,4 @@ app.use("/basket", basketRoute);
 
 app.use(errorHandler);
 
-app.listen(PORT, () => console.log(`Server is running ${PORT}`.rainbow));
+app.listen(PORT, () => console.log(`Server is running ${PORT}`.yellow));

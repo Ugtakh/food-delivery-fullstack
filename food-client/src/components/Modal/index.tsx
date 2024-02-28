@@ -1,14 +1,17 @@
-import * as React from "react";
+"use client";
+import { useState, useContext } from "react";
 import {
   Box,
   Button as MuiButton,
   Typography,
   Modal,
   Grid,
+  Stack,
 } from "@mui/material";
 import Image from "next/image";
 import { Remove, Add, Close } from "@mui/icons-material";
 import { Button } from "@/components";
+import { BasketContext } from "@/context";
 
 const style = {
   position: "absolute",
@@ -26,18 +29,34 @@ const style = {
 interface IModalProps {
   open: boolean;
   handleClose: () => void;
-  handleOpen: () => void;
+  food: {
+    _id: string;
+    name: string;
+    price: number;
+    img: string;
+  };
 }
 
-export const CardModal = ({ handleClose, handleOpen, open }: IModalProps) => {
-  const [count, setCount] = React.useState(1);
+export const CardModal = ({ food, handleClose, open }: IModalProps) => {
+  const { addFoodToBasket }: any = useContext(BasketContext);
+  const [count, setCount] = useState(1);
 
   const handleCount = (operation: string) => {
     if (operation === "add") {
-      setCount(count + 1);
-    } else if (operation === "min") {
-      setCount(count - 1);
+      if (count < 10) setCount(count + 1);
+    } else {
+      if (count) setCount(count - 1);
     }
+  };
+
+  const handleSave = () => {
+    addFoodToBasket({
+      foodId: food._id,
+      quantity: count,
+      totalPrice: count * food.price,
+    });
+
+    handleClose();
   };
 
   return (
@@ -72,23 +91,23 @@ export const CardModal = ({ handleClose, handleOpen, open }: IModalProps) => {
                 </MuiButton>
               </Grid>
               <Grid display={"flex"} flexDirection={"column"} gap={2}>
-                <div>
+                <Grid>
                   <Typography
                     id="modal-modal-title"
                     variant="h5"
                     fontWeight={600}
                     component="h2"
                   >
-                    Bowl
+                    {food?.name}
                   </Typography>
                   <Typography
                     id="modal-modal-description"
                     sx={{ color: "#18BA51" }}
                   >
-                    18,800
+                    {food?.price}
                   </Typography>
-                </div>
-                <div>
+                </Grid>
+                <Grid>
                   <Typography
                     id="modal-modal-title"
                     variant="h6"
@@ -106,8 +125,8 @@ export const CardModal = ({ handleClose, handleOpen, open }: IModalProps) => {
                   >
                     Өндөг, шош, улаан лооль, өргөст хэмт, байцаа, салмон.
                   </Typography>
-                </div>
-                <div>
+                </Grid>
+                <Grid>
                   <Typography
                     id="modal-modal-title"
                     variant="h6"
@@ -116,7 +135,7 @@ export const CardModal = ({ handleClose, handleOpen, open }: IModalProps) => {
                   >
                     Тоо
                   </Typography>
-                  <div>
+                  <Stack direction={"row"} justifyContent={"center"}>
                     <MuiButton onClick={() => handleCount("min")}>
                       <Remove
                         sx={{
@@ -152,10 +171,10 @@ export const CardModal = ({ handleClose, handleOpen, open }: IModalProps) => {
                         }}
                       />
                     </MuiButton>
-                  </div>
-                </div>
+                  </Stack>
+                </Grid>
 
-                <Button label={"Сагслах"} onClick={handleClose} />
+                <Button label={"Сагслах"} onClick={handleSave} />
               </Grid>
             </Grid>
           </Grid>
