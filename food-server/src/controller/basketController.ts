@@ -37,6 +37,9 @@ export const addToBasketByUserId = async (
       if (findIndex !== -1) {
         findBasket.foods[findIndex].qty = Number(req.body.quantity);
         findBasket.totalPrice = Number(req.body.totalPrice);
+      } else {
+        findBasket.foods.push(req.body.foodId);
+        findBasket.totalPrice = Number(req.body.totalPrice);
       }
 
       const savedBasket = await (
