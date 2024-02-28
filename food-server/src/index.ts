@@ -13,6 +13,7 @@ import verifyRoute from "./routes/verifyRoute";
 import uploadRoute from "./routes/uploadRoute";
 import categoryRoute from "./routes/categoryRoute";
 import basketRoute from "./routes/basketRoutes";
+import orderRoute from "./routes/orderRoutes";
 
 import errorHandler from "./middleware/errorHandler";
 
@@ -36,6 +37,7 @@ app.use("/verify", verifyRoute);
 app.use("/categories", categoryRoute);
 app.use("/upload", uploadRoute);
 app.use("/basket", basketRoute);
+app.use("/order", orderRoute);
 
 app.use(errorHandler);
 
