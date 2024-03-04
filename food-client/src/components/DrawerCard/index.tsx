@@ -1,9 +1,9 @@
-import * as React from "react";
+import { useContext } from "react";
 import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
 import FoodCard from "./FoodCard";
 import { Button } from "..";
 
-export const DrawerCard = ({ basket }: any) => {
+export const DrawerCard = ({ basket, handleOrder }: any) => {
   return (
     <Stack
       direction={"column"}
@@ -45,7 +45,7 @@ export const DrawerCard = ({ basket }: any) => {
           </Typography>
         </Grid>
         <Grid item xs={6}>
-          <Button label={"Захиалах"} onClick={() => {}} />
+          <Button label={"Захиалах"} onClick={handleOrder} />
         </Grid>
       </Grid>
     </Stack>

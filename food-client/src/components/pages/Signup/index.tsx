@@ -6,6 +6,7 @@ import {
   Checkbox,
   Container,
   FormControlLabel,
+  FormHelperText,
   Stack,
   Typography,
 } from "@mui/material";
@@ -48,7 +49,6 @@ const SignupPage = () => {
       address: "",
       password: "",
       rePassword: "",
-      isOk: false,
     },
     validateOnChange: false,
     validateOnBlur: false,
@@ -117,7 +117,7 @@ const SignupPage = () => {
 
         <Stack sx={{ mb: "1rem" }}>
           <FormControlLabel
-            control={<Checkbox onChange={formik.handleChange} name="jason" />}
+            control={<Checkbox onChange={formik.handleChange} name="isAgree" />}
             label="Үйлчилгээний нөхцөл зөвшөөрөх"
           />
         </Stack>

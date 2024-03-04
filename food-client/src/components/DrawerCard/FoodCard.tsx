@@ -2,13 +2,8 @@ import { Button as MuiButton, Typography, Grid, Divider } from "@mui/material";
 import { Remove, Add, Close } from "@mui/icons-material";
 import { useContext, useState } from "react";
 import { BasketContext } from "@/context";
+import Image from "next/image";
 
-const backgroundImageStyle = {
-  backgroundImage: 'url("/assets/food-1.jpg")',
-  backgroundSize: "cover",
-  backgroundPosition: "center",
-  height: "150px",
-};
 interface IBasket {
   selectedFood: {
     food: any;
@@ -20,6 +15,7 @@ const FoodCard = ({ selectedFood }: IBasket) => {
   const { food } = selectedFood;
   const { updateFoodToBasket, deleteFoodFromBasket }: any =
     useContext(BasketContext);
+  console.log(food.image);
   const [quantity, setQuantity] = useState(selectedFood.qty);
 
   const handleQuantity = (operation: string, foodId: string) => {
@@ -55,7 +51,23 @@ const FoodCard = ({ selectedFood }: IBasket) => {
       py={5}
       my={1}
     >
-      <Grid item xs={5} style={backgroundImageStyle}></Grid>
+      <Grid
+        item
+        xs={5}
+        style={{
+          backgroundImage: `url(${food?.image || "/assets/food-1.jpg"})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          height: "150px",
+        }}
+      >
+        {/* <Image
+          src={food?.image || 'url("/assets/food-1.jpg")'}
+          alt="photo"
+          width={100}
+          height={100}
+        /> */}
+      </Grid>
       <Grid
         item
         xs={5}

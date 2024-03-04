@@ -1,7 +1,6 @@
 "use client";
 
 import { ChangeEvent, useState } from "react";
-
 import { Container } from "@mui/material";
 
 import StepOne from "./StepOne";
@@ -9,22 +8,24 @@ import StepTwo from "./StepTwo";
 import StepThree from "./StepThree";
 
 const MyStepper = () => {
-  const [activeStep, setActiveStep] = useState(3);
-
-  const [user, setUser] = useState({
-    email: "ugtakhbayars@gmail.com",
-    password: "",
-    otp: "",
-  });
+  const [user, setUser] = useState({ email: null, otp: null, password: null });
+  const [activeStep, setActiveStep] = useState(1);
 
   const handleNext = async () => {
     setActiveStep((prev) => prev + 1);
   };
 
-  const handleChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-    setUser((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  const handleChangeInput = ({
+    name,
+    value,
+  }: {
+    name: string;
+    value: string;
+  }) => {
+    setUser((prev) => ({ ...prev, [name]: value }));
   };
 
+  console.log("USER", user);
   return (
     <Container>
       {activeStep === 1 && (

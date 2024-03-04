@@ -11,7 +11,8 @@ import {
 import Image from "next/image";
 import { Remove, Add, Close } from "@mui/icons-material";
 import { Button } from "@/components";
-import { BasketContext } from "@/context";
+import { BasketContext, UserContext } from "@/context";
+import { toast } from "react-toastify";
 
 const style = {
   position: "absolute",
@@ -33,12 +34,13 @@ interface IModalProps {
     _id: string;
     name: string;
     price: number;
-    img: string;
+    image: string;
   };
 }
 
 export const CardModal = ({ food, handleClose, open }: IModalProps) => {
   const { addFoodToBasket }: any = useContext(BasketContext);
+  const { user }: any = useContext(UserContext);
   const [count, setCount] = useState(1);
 
   const handleCount = (operation: string) => {
@@ -50,12 +52,16 @@ export const CardModal = ({ food, handleClose, open }: IModalProps) => {
   };
 
   const handleSave = () => {
+    if (!user) {
+      toast.info("Та нэвтэрсний дараа энэ үйдлийг хийх боломжтой");
+      return;
+    }
+
     addFoodToBasket({
       foodId: food._id,
       quantity: count,
       totalPrice: count * food.price,
     });
-
     handleClose();
   };
 

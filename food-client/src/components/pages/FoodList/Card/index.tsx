@@ -20,7 +20,7 @@ interface IFoodProps {
     _id: string;
     name: string;
     price: number;
-    img: string;
+    image: string;
   };
 }
 
@@ -44,7 +44,7 @@ export const FoodCard = ({ food }: IFoodProps) => {
         <CardActionArea>
           <CardMedia
             sx={{ p: 0, height: 186 }}
-            image={food?.img || "/assets/images/food/food3.png"}
+            image={food?.image || "/assets/images/food/food3.png"}
           />
           <CardContent
             sx={{

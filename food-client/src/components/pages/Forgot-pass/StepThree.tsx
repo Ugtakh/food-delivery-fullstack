@@ -8,7 +8,7 @@ import { object, string, ref } from "yup";
 import axios from "axios";
 
 interface IStepProps {
-  email: string;
+  email: string | null;
 }
 
 const validationSchema = object({
@@ -26,9 +26,7 @@ const StepThree = ({ email }: IStepProps) => {
 
   const formik = useFormik({
     onSubmit: async ({ password, rePassword }) => {
-      console.log("PASS", password);
-      console.log("PASS", rePassword);
-      savePassword(email, password);
+      savePassword(email!, password);
     },
     initialValues: { password: "test", rePassword: "retest" },
     validateOnChange: false,
@@ -37,8 +35,6 @@ const StepThree = ({ email }: IStepProps) => {
   });
 
   const savePassword = async (email: string, password: string) => {
-    console.log("Email", email);
-    console.log("Pass", password);
     const res = await axios.post(
       "http://localhost:8080/verify/reset-password/",
       {
@@ -52,7 +48,7 @@ const StepThree = ({ email }: IStepProps) => {
       text: "та шинэ нууц үгээ ашиглан нэвтэрнэ үү",
       icon: "success",
     });
-    // router.replace("/login");
+    router.replace("/login");
   };
 
   return (

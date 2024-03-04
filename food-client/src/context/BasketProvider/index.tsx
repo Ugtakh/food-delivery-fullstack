@@ -1,13 +1,20 @@
 "use client";
 
-import axios from "axios";
-import { PropsWithChildren, createContext, useEffect, useState } from "react";
+import axios, { Axios, AxiosError } from "axios";
+import {
+  PropsWithChildren,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { toast } from "react-toastify";
+import { UserContext } from "..";
 
 export const BasketContext = createContext({} as object);
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YmEyNWY3ZTc5ZDk5ZDdhYWUxYzE4NSIsImlhdCI6MTcwOTA4NzI2MiwiZXhwIjoxNzA5MTczNjYyfQ.gFmPmZYhS7cWr9sAbGbBV4uE6b0ZN3K1iOpbbBsuChs";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YmEyNWY3ZTc5ZDk5ZDdhYWUxYzE4NSIsImlhdCI6MTcwOTQwMDA5OSwiZXhwIjoxNzA5NDg2NDk5fQ.TBk1ToShB_pveriY6_ypWuRvJ77p_Wy8paUma_mcpj0";
 
 const createReq = async (url: string, foodItem: any) => {
   const { data } = (await axios.post(url, foodItem, {
@@ -19,8 +26,8 @@ const createReq = async (url: string, foodItem: any) => {
 };
 
 export const BasketProvider = ({ children }: PropsWithChildren) => {
+  const { user } = useContext(UserContext);
   const [basket, setBasket] = useState<{} | null>(null);
-  const [refetch, setRefetch] = useState<boolean>(false);
 
   const addFoodToBasket = async (foodItem: any) => {
     console.log("Food", foodItem);
@@ -78,13 +85,20 @@ export const BasketProvider = ({ children }: PropsWithChildren) => {
       setBasket({ ...data?.basket });
       // toast.success(data.message);
     } catch (error: any) {
-      toast.error(error.response.data.message);
+      console.log(error);
+      if (error.response) {
+        error.message = error.response.data.message;
+      }
+
+      toast.error(error.message);
     }
   };
 
   useEffect(() => {
-    getFoodBasket();
-  }, []);
+    if (user) {
+      getFoodBasket();
+    }
+  }, [user]);
 
   return (
     <BasketContext.Provider

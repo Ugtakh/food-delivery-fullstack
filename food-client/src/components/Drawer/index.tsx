@@ -8,9 +8,9 @@ import {
 } from "@mui/material";
 import { FaChevronLeft } from "react-icons/fa";
 import Lottie from "lottie-react";
-import React from "react";
+import React, { useContext } from "react";
 import { DrawerCard } from "../DrawerCard";
-import { BasketContext } from "@/context";
+import { BasketContext, UserContext } from "@/context";
 
 import emptyBasketData from "@/../../public/assets/images/lottie/emptyBasket.json";
 
@@ -20,8 +20,20 @@ interface IDrawerProps {
 }
 
 const MyDrawer = ({ handleClose, open }: IDrawerProps) => {
-  const { basket }: any = React.useContext(BasketContext);
-  const [count, setCount] = React.useState(basket?.foods.qty);
+  const { createOrder, user } = useContext(UserContext);
+  const { basket }: any = useContext(BasketContext);
+
+  const handleOrder = () => {
+    if (user) {
+    }
+
+    createOrder(basket, {
+      khoroo: "10 Khoroo",
+      district: "SBD",
+      info: "This is a info",
+    });
+  };
+
   return (
     <>
       <Drawer open={open} onClose={handleClose} anchor="right">
@@ -59,7 +71,7 @@ const MyDrawer = ({ handleClose, open }: IDrawerProps) => {
               </Typography>
             </Stack>
           )}
-          {basket && <DrawerCard basket={basket} />}
+          {basket && <DrawerCard basket={basket} handleOrder={handleOrder} />}
         </Box>
       </Drawer>
     </>
