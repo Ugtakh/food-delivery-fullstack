@@ -35,13 +35,18 @@ const validationSchema = yup.object({
     .oneOf([yup.ref("password")], "Нууц үг хоорондоо таарахгүй байна")
     .min(6, "Хамгийн багадаа 6 тэмдэгтээс тогтоно")
     .required("Нууц үгийг заавал оруулна уу"),
+  isAgree: yup.boolean().isTrue("Үйлчилгээний нөхцөл зөвшөөрөөгүй байна"),
 });
 
 const SignupPage = () => {
   const formik = useFormik({
-    onSubmit: ({ email, password }) => {
-      console.log("EMAIL", email);
+    onSubmit: ({ name, email, address, password, rePassword, isAgree }) => {
+      console.log("EMAIL", name);
+      console.log("PASS", email);
+      console.log("PASS", address);
       console.log("PASS", password);
+      console.log("PASS", rePassword);
+      console.log("PASS", isAgree);
     },
     initialValues: {
       name: "",
@@ -49,8 +54,9 @@ const SignupPage = () => {
       address: "",
       password: "",
       rePassword: "",
+      isAgree: false,
     },
-    validateOnChange: false,
+
     validateOnBlur: false,
     validationSchema,
   });
@@ -120,6 +126,9 @@ const SignupPage = () => {
             control={<Checkbox onChange={formik.handleChange} name="isAgree" />}
             label="Үйлчилгээний нөхцөл зөвшөөрөх"
           />
+          <FormHelperText error={formik.errors.isAgree ? true : false}>
+            {formik.errors.isAgree}
+          </FormHelperText>
         </Stack>
 
         <Stack flex="row" width="100%" justifyContent="flex-end">

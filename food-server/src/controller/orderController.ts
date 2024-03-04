@@ -2,7 +2,7 @@ import { NextFunction, Response } from "express";
 import { IReq } from "../utils/interface";
 import MyError from "../utils/myError";
 import User from "../model/user";
-import { nanoid } from "nanoid";
+import { customAlphabet } from "nanoid";
 import Basket from "../model/basket";
 
 export const createOrder = async (

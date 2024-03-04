@@ -41,4 +41,6 @@ app.use("/order", orderRoute);
 
 app.use(errorHandler);
 
-app.listen(PORT, () => console.log(`Server is running ${PORT}`.yellow));
+const server = app.listen(PORT, () =>
+  console.log(`Server is running ${PORT}`.yellow)
+);
