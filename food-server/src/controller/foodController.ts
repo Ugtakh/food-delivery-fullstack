@@ -39,13 +39,13 @@ export const getFood = async (
   }
 };
 
-export const getAllFood = async (
+export const getAllFoods = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const foods = await Food.find().populate("category", "_id name");
+    const foods = await Food.find().populate("category", "_id name").lean();
 
     res.status(200).json({
       message: `Бүх хоол.`,
@@ -65,7 +65,7 @@ export const updateFood = async (
     const { foodId } = req.params;
     const updateCategory = req.body;
 
-    const food = await Food.findByIdAndUpdate(foodId, updateCategory);
+    const food = await Food.findByIdAndUpdate(foodId, updateCategory).lean();
 
     if (!food) {
       throw new MyError(`${foodId}-тэй хоол олдсонгүй.`, 400);

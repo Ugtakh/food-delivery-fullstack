@@ -2,15 +2,20 @@ import { Router } from "express";
 import {
   createFood,
   getFood,
-  getAllFood,
+  getAllFoods,
   updateFood,
   deleteFood,
 } from "../controller/foodController";
+import { authenticate } from "../middleware/auth";
 
 const router = Router();
 
-router.route("/").get(getAllFood).post(createFood);
+router.route("/").get(getAllFoods).post(authenticate, createFood);
 
-router.route("/:foodId").get(getFood).put(updateFood).delete(deleteFood);
+router
+  .route("/:foodId")
+  .get(getFood)
+  .put(authenticate, updateFood)
+  .delete(authenticate, deleteFood);
 
 export default router;

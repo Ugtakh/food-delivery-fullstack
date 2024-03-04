@@ -38,8 +38,13 @@ export const addToBasketByUserId = async (
         findBasket.foods[findIndex].qty = Number(req.body.quantity);
         findBasket.totalPrice = Number(req.body.totalPrice);
       } else {
-        findBasket.foods.push(req.body.foodId);
-        findBasket.totalPrice = Number(req.body.totalPrice);
+        //Body { foodId: '65c09a9540441dead6a530e2', quantity: 2, totalPrice: 4000 }
+        findBasket.foods.push({
+          food: req.body.foodId,
+          qty: req.body.quantity,
+        });
+        findBasket.totalPrice =
+          Number(req.body.totalPrice) + findBasket.totalPrice!;
       }
 
       const savedBasket = await (
@@ -54,7 +59,11 @@ export const addToBasketByUserId = async (
 
       res.status(200).json({
         message: "Хоол амжилттай нэмлээ-2",
-        basket: { foods: savedBasket.foods, totalPrice: findBasket.totalPrice },
+        basket: {
+          id: savedBasket._id,
+          foods: savedBasket.foods,
+          totalPrice: findBasket.totalPrice,
+        },
       });
     }
   } catch (error) {
@@ -79,7 +88,11 @@ export const getFromBasketByUser = async (
 
     res.status(200).json({
       message: "Хоолны мэдээлэл",
-      basket: { foods: findBasket.foods, totalPrice: findBasket.totalPrice },
+      basket: {
+        id: findBasket._id,
+        foods: findBasket.foods,
+        totalPrice: findBasket.totalPrice,
+      },
     });
   } catch (error) {
     next(error);
@@ -113,7 +126,11 @@ export const deleteFromBasketByUser = async (
     const savedBasket = await (await findBasket.save()).populate("foods.food");
     res.status(200).json({
       message: "Хоолыг сагснаас хаслаа.",
-      basket: { foods: savedBasket.foods, totalPrice: savedBasket.totalPrice },
+      basket: {
+        id: savedBasket._id,
+        foods: savedBasket.foods,
+        totalPrice: savedBasket.totalPrice,
+      },
     });
   } catch (error) {
     next(error);

@@ -79,7 +79,7 @@ export const updateCategory = async (
     const category = await Category.findByIdAndUpdate(
       categoryId,
       updateCategory
-    );
+    ).lean();
 
     if (!category) {
       throw new MyError(`${categoryId}-тэй категори олдсонгүй.`, 400);
