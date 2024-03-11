@@ -17,6 +17,7 @@ interface IInputProps {
   name: string;
   label: string;
   value?: string;
+  desc?: string;
   errorText?: string | undefined;
   showPassword?: boolean;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
@@ -28,6 +29,7 @@ export const Input = ({
   errorText,
   value,
   showPassword = false,
+  desc = "",
   onChange,
 }: IInputProps) => {
   const [isShowPassword, setIsShowPassword] = useState(showPassword);
