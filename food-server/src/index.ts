@@ -1,4 +1,4 @@
-import express, { Application } from "express";
+import express, { Application, Request, Response } from "express";
 import color from "colors";
 import cors from "cors";
 import dotenv from "dotenv";
@@ -30,6 +30,7 @@ app.use((req, res, next) => {
   console.log("REQ", req.originalUrl);
   next();
 });
+
 app.use("/auth", authRoute);
 app.use("/users", userRoute);
 app.use("/foods", FoodRoute);
@@ -38,6 +39,10 @@ app.use("/categories", categoryRoute);
 app.use("/upload", uploadRoute);
 app.use("/basket", basketRoute);
 app.use("/order", orderRoute);
+
+app.get("/", (req: Request, res: Response) => {
+  res.send("Food Delivery");
+});
 
 app.use(errorHandler);
 
