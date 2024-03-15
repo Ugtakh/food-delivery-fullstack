@@ -6,6 +6,7 @@ import { Box, Container, Stack, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import React, { useContext } from "react";
+import { signIn } from "next-auth/react";
 
 const validationSchema = yup.object({
   email: yup
@@ -85,6 +86,21 @@ const LoginPage = () => {
         </Stack>
         <Stack flex="row" width="100%" justifyContent="flex-end">
           <Button label="Бүртгүүлэх" btnType="outlined" href="/signup" />
+        </Stack>
+
+        <Stack
+          sx={{ my: "2rem" }}
+          flex="row"
+          width="100%"
+          justifyContent="flex-end"
+        >
+          <Button
+            label="Github"
+            btnType="outlined"
+            onClick={() => {
+              signIn();
+            }}
+          />
         </Stack>
       </Box>
     </Container>
