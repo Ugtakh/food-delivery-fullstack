@@ -95,10 +95,10 @@ const LoginPage = () => {
           justifyContent="flex-end"
         >
           <Button
-            label="Github"
+            label="Google"
             btnType="outlined"
             onClick={() => {
-              signIn();
+              signIn("google", { callbackUrl: "http://localhost:3000/" });
             }}
           />
         </Stack>
