@@ -46,6 +46,6 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use(errorHandler);
 
-const server = app.listen(PORT, () =>
-  console.log(`Server is running ${PORT}`.yellow)
-);
+app.listen(PORT, () => console.log(`Server is running ${PORT}`.yellow));
+
+export default app;
