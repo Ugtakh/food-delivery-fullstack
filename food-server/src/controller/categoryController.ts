@@ -14,12 +14,12 @@ export const createCategory = async (
     console.log("RF", req.file);
     const newCategory = { ...req.body };
 
-    if (req.file) {
-      const { secure_url } = await cloudinary.uploader.upload(req.file.path);
-      newCategory.image = secure_url;
-    }
+    // if (req.file) {
+    //   const { secure_url } = await cloudinary.uploader.upload(req.file.path);
+    //   newCategory.image = secure_url;
+    // }
 
-    await Category.create(newCategory);
+    // await Category.create(newCategory);
 
     res.status(201).json({ message: "Категори амжилттай үүслээ." });
   } catch (error) {
