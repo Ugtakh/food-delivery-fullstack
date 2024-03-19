@@ -47,5 +47,3 @@ app.get("/", (req: Request, res: Response) => {
 app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`Server is running ${PORT}`.yellow));
-
-// export default app;
