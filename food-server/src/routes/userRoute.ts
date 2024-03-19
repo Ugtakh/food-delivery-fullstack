@@ -1,9 +1,7 @@
 import { Router } from "express";
-import { getUsers, uploadPhoto } from "../controller/userController";
-import multer from "multer";
+import { getUsers } from "../controller/userController";
 
 const router = Router();
-const upload = multer({ dest: "./uploads" });
 
 router.route("/").get(getUsers);
 
