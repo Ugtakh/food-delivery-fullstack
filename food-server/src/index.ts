@@ -31,14 +31,14 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/auth", authRoute);
-app.use("/users", userRoute);
-app.use("/foods", FoodRoute);
-app.use("/verify", verifyRoute);
-app.use("/categories", categoryRoute);
-app.use("/upload", uploadRoute);
-app.use("/basket", basketRoute);
-app.use("/order", orderRoute);
+app.use("api/v1/auth", authRoute);
+app.use("api/v1/users", userRoute);
+app.use("api/v1/foods", FoodRoute);
+app.use("api/v1/verify", verifyRoute);
+app.use("api/v1/categories", categoryRoute);
+app.use("api/v1/upload", uploadRoute);
+app.use("api/v1/basket", basketRoute);
+app.use("api/v1/order", orderRoute);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("<h1>Food Delivery</h1>");
