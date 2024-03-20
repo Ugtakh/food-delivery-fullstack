@@ -41,7 +41,7 @@ app.use("/basket", basketRoute);
 app.use("/order", orderRoute);
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Food Delivery");
+  res.send("<h1>Food Delivery</h1>");
 });
 
 app.use(errorHandler);
