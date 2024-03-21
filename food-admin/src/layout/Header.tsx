@@ -45,18 +45,12 @@ export default function Header({ onOpenNav }: any) {
     <AppBar
       sx={{
         boxShadow: "none",
-        height: HEADER.H_MOBILE,
+        height: lgUp ? HEADER.H_DESKTOP : HEADER.H_MOBILE,
         zIndex: theme.zIndex.appBar + 1,
-        ...bgBlur({
-          color: theme.palette.background.default,
-        }),
         transition: theme.transitions.create(["height"], {
           duration: theme.transitions.duration.shorter,
         }),
-        ...(lgUp && {
-          width: `calc(100% - ${NAV.WIDTH + 1}px)`,
-          height: HEADER.H_DESKTOP,
-        }),
+        width: lgUp ? `calc(100% - ${NAV.WIDTH + 1}px)` : null,
       }}
     >
       <Toolbar
